@@ -1,16 +1,21 @@
-db:
-  image: mongo
-  ports:
-    - 27017:27017
-  command: "--smallfiles --logpath=/dev/null"
-web:
-  build: .
-  command: node app.js
-  # volumes:
-  #   - .:/myapp
-  ports:
-    - 3000:3000
-  links:
-    - db
-  environment:
-    PORT: 3000 # this is optional, allows express to use process.env.PORT instead of a raw 3000
+version: '2'
+services:
+  db:
+    image: mongo:3.4.1
+    ports:
+      - 27017:27017
+    # command: "--smallfiles --logpath=/dev/null"
+
+  web:
+    build: .
+    tty: true
+    stdin_open: true
+    command: node app.js
+    ports:
+      - 3000:3000
+    links:
+      - db
+    environment:
+      PORT: 3000 # this is optional, allows express to use process.env.PORT instead of a raw 3000
+    depends_on:
+      - db
