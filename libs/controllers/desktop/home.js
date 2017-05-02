@@ -2,8 +2,8 @@
  * Home Page
  **/
 // ?? why doesn't this work??
-require.paths.unshift('../../core');
-require.paths.unshift('../../models');
+// require.paths.unshift('../../core');
+// require.paths.unshift('../../models');
 
 
 var Links = require('../../models/links');
@@ -20,12 +20,12 @@ home.index = function(req, res) {
   console.log("display home page");
 
   var self = this;
-  
+
   Links.getPage(
     {
-      page: 2, 
+      page: 2,
       items_per_page: 1
-    }, 
+    },
     function(results) {
       console.log(results);
       console.log("---");
@@ -34,7 +34,7 @@ home.index = function(req, res) {
 	items: results,
 	current_user: "rob"
       })
-      
+
     }
   );
 }

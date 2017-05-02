@@ -1,5 +1,5 @@
 /**
- * Model Base 
+ * Model Base
  *
  * This is the basic model functionality. All other models will
  * be created off this
@@ -11,17 +11,17 @@ var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
 
 /**
- * Model "constructor". 
+ * Model "constructor".
  * Sets the name of the collection and connects to database
  * @param string name of the collection this model maps to
  **/
 var Model = function(collection) {
     this.collection = collection;
-    this.db = new Db('lecker', new Server('127.0.0.1', 27017, {}));
+    this.db = new Db('lecker', new Server('db', 27017, {}));
 }
 
 /**
- * Connects to the database 
+ * Connects to the database
  * @param function callback to execute after connection established
  **/
 Model.prototype.connect = function(callback) {
@@ -71,7 +71,7 @@ Model.prototype.find = function(query_filter, query_options, callback) {
 	collection.find(query_filter, {}, query_options).toArray(function(err, results) {
 	    if(err) {
 		throw {name: 'Find Error', message: err};
-	    }	
+	    }
 	    callback(results);
 	});
     });
@@ -91,7 +91,7 @@ Model.prototype.insert = function(doc, options, callback) {
 	collection.insert(doc, options, function(err, records){
 	    if(err) {
 		throw {name: 'Insert Error', message: err};
-	    }	
+	    }
 	    callback(records);
 	});
     });
